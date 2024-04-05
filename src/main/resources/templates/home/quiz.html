@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="'Quiz ' + ${quiz.id}"></title>
+</head>
+<body>
+<h1 th:text="'Quiz ' + ${quiz.id}"></h1>
+<p th:text="${quiz.description}"></p>
+
+<ul th:if="${quiz.questions != null}">
+  <form th:action="'/submit-quiz/' + ${quiz.id}" method="post">
+    <!-- Add hidden input field for quizId -->
+    <input type="hidden" name="quizId" th:value="${quiz.id}" />
+
+    <ul th:each="question, questionIndex : ${quiz.questions}">
+      <li>
+        <p th:text="${question.text}"></p>
+        <ul>
+          <li>
+            <input type="radio" th:id="'question_' + ${questionIndex.index}" th:name="'answer_' + ${questionIndex.index}" th:value="${question.answerOption_1}">
+            <label th:for="'question_' + ${questionIndex.index}" th:text="${question.answerOption_1}"></label>
+          </li>
+          <li>
+            <input type="radio" th:id="'question_' + ${questionIndex.index + 1}" th:name="'answer_' + ${questionIndex.index}" th:value="${question.answerOption_2}">
+            <label th:for="'question_' + ${questionIndex.index + 1}" th:text="${question.answerOption_2}"></label>
+          </li>
+          <li>
+            <input type="radio" th:id="'question_' + ${questionIndex.index + 2}" th:name="'answer_' + ${questionIndex.index}" th:value="${question.answerOption_3}">
+            <label th:for="'question_' + ${questionIndex.index + 2}" th:text="${question.answerOption_3}"></label>
+          </li>
+          <li>
+            <input type="radio" th:id="'question_' + ${questionIndex.index + 3}" th:name="'answer_' + ${questionIndex.index}" th:value="${question.answerOption_4}">
+            <label th:for="'question_' + ${questionIndex.index + 3}" th:text="${question.answerOption_4}"></label>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <button type="submit">Submit Answers</button>
+  </form>
+</ul>
+</body>
+</html>

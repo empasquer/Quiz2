@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Quiz Score ' + ${quiz.id}"></title>
+</head>
+<body>
+<h1 th:text="'Quiz Score ' + ${quiz.id}"></h1>
+<div th:if="${quiz != null}">
+    <p>Quiz Title: <span th:text="${quiz.title}"></span></p>
+    <p>Quiz Description: <span th:text="${quiz.description}"></span></p>
+    <p>Your Score: <span th:text="${score}"></span></p>
+
+    <ul>
+        <li th:each="question : ${quiz.questions}" >
+            <p th:text="${question.text}"></p>
+            <ul>
+                <li>Your Answer: <span th:text="${answers.get(question.getId() -1)}"></span></li> <!-- Assuming you have a method to get user's answer -->
+                <li>Correct Answer: <span th:text="${question.correctAnswer}"></span></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>
